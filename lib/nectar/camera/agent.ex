@@ -10,8 +10,16 @@ defmodule Nectar.Camera.Agent do
     Agent.get(agent, fn camera -> Camera.get_snapshot(camera) end)
   end
 
-  def get_video_sequence(agent, duration_seconds) do
-    Agent.update(agent, fn camera -> Camera.get_video_sequence(camera, duration_seconds) end)
+  def start_recording(agent, duration_seconds) when is_integer(duration_seconds) and duration_seconds > 0 do
+    Agent.update(agent, fn camera -> Camera.start_recording(camera, duration_seconds) end)
+  end
+
+  def stop_recording(agent) do
+    Agent.update(agent, fn camera -> Camera.stop_recording(camera) end)
+  end
+
+  def get_video_sequence(agent, duration_seconds) when is_integer(duration_seconds) and duration_seconds > 0 do
+    Agent.get(agent, fn camera -> Camera.get_video_sequence(camera, duration_seconds) end)
   end
 
   def set_motion_detected(agent, motion_detected) do
