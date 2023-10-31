@@ -9,7 +9,7 @@ defmodule Nectar.Application do
   def start(_type, _args) do
     children = [
       # Starts a worker by calling: Nectar.Worker.start_link(arg)
-      # {Nectar.Worker, arg}
+      {Task.Supervisor, name: Nectar.TaskSupervisor}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

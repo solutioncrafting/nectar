@@ -48,6 +48,14 @@ defmodule Nectar.Lamp do
     %{lamp | is_on: false}
   end
 
+  def turn_on(lamp) do
+    %{lamp | is_on: true}
+  end
+
+  def turn_off(lamp) do
+    %{lamp | is_on: false}
+  end
+
   def toggle(%__MODULE__{is_on: is_on} = lamp) do
     %{lamp | is_on: not is_on}
   end

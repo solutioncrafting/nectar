@@ -9,6 +9,14 @@ defmodule Nectar.Lamp.Agent do
     Agent.get(agent, fn lamp -> lamp.is_on end)
   end
 
+  def turn_on(agent) do
+    Agent.update(agent, fn lamp -> Lamp.turn_on(lamp) end)
+  end
+
+  def turn_off(agent) do
+    Agent.update(agent, fn lamp -> Lamp.turn_off(lamp) end)
+  end
+
   def set_lamp_state(agent, on_off) do
     Agent.update(agent, fn lamp -> Lamp.switch_on_off(lamp, on_off) end)
   end
