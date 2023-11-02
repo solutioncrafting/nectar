@@ -4,7 +4,7 @@ defmodule Nectar.PIRSensor do
 
   defstruct [:movement_detected, :tamper_detected, :device_info]
 
-  def new do
+  def new() do
     %__MODULE__{
       movement_detected: false,
       tamper_detected: false,
@@ -14,7 +14,7 @@ defmodule Nectar.PIRSensor do
           lng: 14.449474425948397,
           alt: 0
         },
-        current_time: :os.system_time(:second)
+        current_time: :os.system_time(:second),
       }
     }
   end
