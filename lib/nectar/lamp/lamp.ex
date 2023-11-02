@@ -14,7 +14,7 @@ defmodule Nectar.Lamp do
     :device_info
   ]
 
-  def new do
+  def new() do
     %__MODULE__{
       is_on: false,
       rgb_color: {0, 0, 0},

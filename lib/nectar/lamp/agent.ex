@@ -1,8 +1,33 @@
 defmodule Nectar.Lamp.Agent do
+  import Nectar.DeviceInfo
   alias Nectar.Lamp
 
+  @device_type :lamp
+
+  def child_spec(_args) do
+    %{
+      id: __MODULE__,
+      start: {__MODULE__, :start_link, []},
+      type: :worker,
+      restart: :permanent,
+      shutdown: 500
+    }
+  end
+
   def start_link() do
-    Agent.start_link(fn -> Lamp.new() end)
+    with {:ok, pid} <- Agent.start_link(fn -> Lamp.new() end) do
+      handshake(pid)
+      {:ok, pid}
+    end
+  end
+
+  defp handshake(pid) do
+    handshake(@device_type, pid)
+  end
+
+  def send_to_gen_server(agent, message) do
+    {:gateway_pid, gateway_pid} = Agent.get(agent, fn state -> state end)
+    GenServer.cast(gateway_pid, {:send_message, self(), message})
   end
 
   def get_lamp_state(agent) do

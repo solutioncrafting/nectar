@@ -1,8 +1,28 @@
 defmodule Nectar.Camera.Agent do
+  import Nectar.DeviceInfo
   alias Nectar.Camera
 
+  @device_type :camera
+
+  def child_spec(_args) do
+    %{
+      id: __MODULE__,
+      start: {__MODULE__, :start_link, []},
+      type: :worker,
+      restart: :permanent,
+      shutdown: 500
+    }
+  end
+
   def start_link() do
-    Agent.start_link(fn -> Camera.new() end)
+    with {:ok, pid} <- Agent.start_link(fn -> Camera.new() end) do
+      handshake(pid)
+      {:ok, pid}
+    end
+  end
+
+  defp handshake(pid) do
+    handshake(@device_type, pid)
   end
 
   # Camera Functions

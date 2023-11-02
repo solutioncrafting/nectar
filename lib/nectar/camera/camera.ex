@@ -20,7 +20,7 @@ defmodule Nectar.Camera do
   ]
 
   # Camera Initialization
-  def new do
+  def new() do
     %__MODULE__{
       continuous_stream: nil,
       snapshot: nil,
