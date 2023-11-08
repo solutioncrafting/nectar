@@ -25,7 +25,6 @@ defmodule Nectar.PIRSensor.Agent do
     handshake(@device_type, pid)
   end
 
-
   # Set properties
   def set_movement_detected(agent, value) do
     Agent.update(agent, fn state -> %{state | movement_detected: value} end)
