@@ -25,10 +25,10 @@ defmodule Nectar.Lamp.Agent do
     handshake(@device_type, pid)
   end
 
-  def send_to_gen_server(agent, message) do
-    {:gateway_pid, gateway_pid} = Agent.get(agent, fn state -> state end)
-    GenServer.cast(gateway_pid, {:send_message, self(), message})
-  end
+  # def send_to_gen_server(agent, message) do
+  #   {:gateway_pid, gateway_pid} = Agent.get(agent, fn state -> state end)
+  #   GenServer.cast(gateway_pid, {:send_message, self(), message})
+  # end
 
   def get_lamp_state(agent) do
     Agent.get(agent, fn lamp -> lamp.is_on end)

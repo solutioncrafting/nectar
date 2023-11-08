@@ -11,7 +11,7 @@ defmodule Nectar.Application do
 
   @impl true
   def start(_type, _args) do
-    Gateway.start_link()
+#    Gateway.start_link()
 #    PIRSensorAgent.start_link()
 #    LampAgent.start_link()
 #    CameraAgent.start_link()
@@ -19,7 +19,7 @@ defmodule Nectar.Application do
     :timer.sleep(4000)
 
     children = [
-#      {Gateway, []},
+      {Gateway, []},
       {PIRSensorAgent, []},
       {LampAgent, []},
       {CameraAgent, []}
